@@ -13,6 +13,20 @@ struct PostListView: View {
     var body: some View {
         
         List {
+            SearchBar(searchText: $viewModel.searchText)
+                .listRowSeparator(.hidden)
+                .onChange(of: viewModel.searchText) { newValue in
+                    if !newValue.isEmpty {
+                        viewModel.searchFor()
+                    } else {
+                        // Reset to normal posts when search is cleared
+                        Task {
+                            viewModel.posts.removeAll()
+                            await viewModel.loadPosts()
+                        }
+                    }
+                }
+            
             ForEach(viewModel.posts, id: \.id) { post in
                 PostRowView(post: post)
                     .onAppear {

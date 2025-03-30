@@ -42,7 +42,7 @@ final class PostsRepositoryImplementation: PostsRepository {
     func searchPosts(query: String, skip: Int, limit: Int) async throws -> [Post] {
         try await ensureTokenIsValid()
         
-        guard let url = URL(string: "\(ApiConstants.baseURL)/posts/search?q=\(query)&skip=\(skip)&limit=\(limit)") else {
+        guard let url = URL(string: "\(ApiConstants.baseURL)posts/search?q=\(query)&skip=\(skip)&limit=\(limit)") else {
             throw URLError(.badURL)
         }
         

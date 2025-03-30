@@ -18,6 +18,10 @@ final class PostsUseCase {
         try await postsRepository.fetchPosts(skip: 0, limit: 10)
     }
     
+    func searchFor(query: String, skip: Int) async throws  -> [Post] {
+        try await postsRepository.searchPosts(query: query, skip: 0, limit: 10)
+    }
+    
     func loadMorePosts(skip: Int) async throws -> [Post] {
         try await postsRepository.fetchPosts(skip: skip, limit: 10)
     }
