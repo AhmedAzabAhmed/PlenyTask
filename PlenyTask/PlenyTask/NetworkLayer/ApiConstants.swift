@@ -11,6 +11,7 @@ struct ApiConstants {
     
     static let baseURL = "https://dummyjson.com/"
     static let loginPath = "auth/login"
+    static let refreshTokenPath = "auth/refresh"
     static let postsPath = "posts"
 }
 
