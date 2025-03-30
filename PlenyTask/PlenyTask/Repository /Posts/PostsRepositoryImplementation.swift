@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class PostsRepositoryImplementation {
+final class PostsRepositoryImplementation: PostsRepository {
     private let networkManager = NetworkManager.shared
     private let dataProcessor = DataProcessor.shared
     private let authRepository: AuthRepository
@@ -20,7 +20,7 @@ final class PostsRepositoryImplementation {
     func fetchPosts(skip: Int, limit: Int) async throws -> [Post] {
         try await ensureTokenIsValid()
         
-        guard let url = URL(string: "\(ApiConstants.baseURL)/posts?skip=\(skip)&limit=\(limit)") else {
+        guard let url = URL(string: "\(ApiConstants.baseURL)posts?skip=\(skip)&limit=\(limit)") else {
             throw URLError(.badURL)
         }
         

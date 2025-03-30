@@ -27,7 +27,7 @@ struct LoginScreen: View {
                     Text("User Name")
                         .font(.headline)
                         .foregroundColor(.gray)
-                    TextField("Enter your user name", text: $viewModel.email)
+                    TextField("Enter your user name", text: $viewModel.username)
                         .padding(10)
                         .background(Color(UIColor.systemGray6))
                         .cornerRadius(8)
@@ -45,10 +45,10 @@ struct LoginScreen: View {
                     HStack {
                         if isPasswordVisible {
                             TextField("Enter your password", text: $viewModel.password)
-                                
+                            
                         } else {
                             SecureField("Enter your password", text: $viewModel.password)
-                               
+                            
                         }
                         Button(action: {
                             isPasswordVisible.toggle()
@@ -70,6 +70,11 @@ struct LoginScreen: View {
                 Button(action: {
                     Task {
                         await viewModel.login()
+                        if viewModel.isLoggedIn {
+                            if viewModel.isLoggedIn {
+                                coordinator.showHome()
+                            }
+                        }
                     }
                 }) {
                     if viewModel.isLoading {
@@ -87,16 +92,11 @@ struct LoginScreen: View {
                 .frame(maxWidth: .infinity)
                 .background(Color.blue)
                 .cornerRadius(8)
-                .disabled(viewModel.email.isEmpty || viewModel.password.isEmpty) // Disable button if fields are empty
+                .disabled(viewModel.username.isEmpty || viewModel.password.isEmpty) // Disable button if fields are empty
             }
             .padding()
             .navigationDestination(for: Route.self) { value in
                 coordinator.navigationDistination(route: value)
-            }
-            .onReceive(viewModel.$isLoggedIn) { isLoggedIn in
-                if isLoggedIn {
-                    coordinator.showHome()
-                }
             }
         }
     }

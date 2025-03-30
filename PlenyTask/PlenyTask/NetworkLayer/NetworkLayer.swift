@@ -25,9 +25,10 @@ final class NetworkManager {
         // Set body if provided (for POST, PUT, etc.)
         if let body = body {
             request.httpBody = body
-            if request.value(forHTTPHeaderField: "Content-Type") == nil {
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            }
+        }
+        
+        if request.value(forHTTPHeaderField: "Content-Type") == nil {
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
         
         // Set headers if provided
